@@ -4,6 +4,7 @@ namespace FogachoReveloProyecto.Models
 {
     public class Gasto
     {
+        //Atributos
         [Key]
         public int IdGasto { get; set; }
         [Required]
