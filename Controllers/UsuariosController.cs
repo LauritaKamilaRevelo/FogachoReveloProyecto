@@ -52,6 +52,10 @@ namespace FogachoReveloProyecto.Controllers
         {
             return View();
         }
+        public IActionResult Registro()
+        {
+            return View();
+        }
 
         // POST: Usuarios/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
