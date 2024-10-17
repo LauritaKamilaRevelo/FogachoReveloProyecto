@@ -62,13 +62,14 @@ namespace FogachoReveloProyecto.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdUsuario,Nombre,Apellido,Email,Password")] Usuario usuario)
+        public async Task<IActionResult> Registro([Bind("IdUsuario,Nombre,Apellido,Email,Password")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
+                Console.WriteLine($"Informacion del usuario: {usuario.Nombre}{usuario.Apellido}, Email: {usuario.Email} ");
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Registro));
             }
             return View(usuario);
         }

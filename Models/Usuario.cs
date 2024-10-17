@@ -16,6 +16,5 @@ namespace FogachoReveloProyecto.Models
         [Required]
         public string? Password { get; set; }
 
-        public List<Gasto> Gastos { get; set; }
     }
 }

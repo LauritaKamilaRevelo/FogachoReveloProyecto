@@ -21,7 +21,6 @@ namespace FogachoReveloProyecto.Models
         public double? ValorPagado { get; set; }
         public Estado Estados { get; set; }
 
-        public Usuario Usuarios { get; set; }
 
         //Este metodo se utiliza para calcular el valor del gasto
         public double CalcularValorGasto(double NuevoValor)
