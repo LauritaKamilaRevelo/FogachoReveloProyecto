@@ -66,10 +66,9 @@ namespace FogachoReveloProyecto.Controllers
         {
             if (ModelState.IsValid)
             {
-                Console.WriteLine($"Informacion del usuario: {usuario.Nombre}{usuario.Apellido}, Email: {usuario.Email} ");
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Registro));
+                return RedirectToAction(nameof(Login));
             }
             return View(usuario);
         }
