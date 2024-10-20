@@ -1,18 +1,18 @@
 ﻿@model FogachoReveloProyecto.Models.Usuario
 
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Iniciar Sesión";
 }
 
 <h1>Iniciar Sesión</h1>
 
-<h4>Usuario</h4>
+<h4>Ingresa tus credenciales</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <!-- Formulario de login -->
+        <!-- Formulario de inicio de sesión -->
         <form asp-action="Login" method="post">
-            <!-- Mostrar resumen de errores de validación -->
+            <!-- Resumen de errores de validación -->
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <!-- Campo de correo electrónico -->

@@ -62,31 +62,33 @@ namespace FogachoReveloProyecto.Controllers
         // POST: Usuarios/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("Email,Password")] Usuario usuario)
         {
-            if (ModelState.IsValid)
+
+            if (string.IsNullOrEmpty(usuario.Email) || string.IsNullOrEmpty(usuario.Password))
             {
-                var userBaseDatos = await _context.Usuario.FirstOrDefaultAsync(u => u.Email == usuario.Email);
-
-                if (userBaseDatos == null)
-                {
-                    ModelState.AddModelError(string.Empty, "Email no existente.");
-                    return View(usuario);
-                }
-
-                if (userBaseDatos.Password != usuario.Password)
-                {
-                    ModelState.AddModelError(string.Empty, "Contraseña incorrecta.");
-                    return View(usuario);
-                }
-
-                return RedirectToAction("Index");
+                ModelState.AddModelError(string.Empty, "Email y contraseña son requeridos.");
+                return View(usuario);
             }
 
-            return View(usuario);
+            var userBaseDatos = await _context.Usuario.FirstOrDefaultAsync(u => u.Email == usuario.Email);
+
+            if (userBaseDatos == null)
+            {
+                ModelState.AddModelError(string.Empty, "Email no encontrado.");
+                return View(usuario);
+            }
+
+            if (userBaseDatos.Password != usuario.Password)
+            {
+                ModelState.AddModelError(string.Empty, "Contraseña incorrecta.");
+                return View(usuario);
+            }
+
+            return RedirectToAction("PaginaInicial", "Gastos");
         }
 
         [HttpPost]

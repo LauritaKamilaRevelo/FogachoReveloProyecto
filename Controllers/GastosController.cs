@@ -28,7 +28,7 @@ namespace FogachoReveloProyecto.Controllers
         {
             return View();
         }
-
+        
 
         [HttpPost]
         public async Task<IActionResult> CrearGasto(Gasto gasto)
@@ -128,7 +128,7 @@ namespace FogachoReveloProyecto.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(PaginaInicial));
             }
             return View(gasto);
         }
@@ -163,7 +163,7 @@ namespace FogachoReveloProyecto.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(PaginaInicial));
         }
 
         private bool GastoExists(int id)
