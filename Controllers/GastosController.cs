@@ -35,6 +35,7 @@ namespace FogachoReveloProyecto.Controllers
         {
             if (ModelState.IsValid)
             {
+                gasto.ActualizacionPagos();
                 _context.Add(gasto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(PaginaInicial)); // Redirige a la lista de gastos después de crear
@@ -60,28 +61,11 @@ namespace FogachoReveloProyecto.Controllers
             return View(gasto);
         }
 
-        // GET: Gasto/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
 
         // POST: Gasto/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdGasto,FechaRegristo,FechaFinal,Categorias,Descripcion,Valor,ValorPagado,Estados")] Gasto gasto)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(gasto);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(gasto);
-        }
-
+        
         // GET: Gasto/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -114,6 +98,8 @@ namespace FogachoReveloProyecto.Controllers
             {
                 try
                 {
+                    // Llamar a ActualizacionPagos antes de actualizar el gasto
+                    gasto.ActualizacionPagos(); // Actualizamos el estado
                     _context.Update(gasto);
                     await _context.SaveChangesAsync();
                 }
