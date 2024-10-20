@@ -1,4 +1,5 @@
-﻿@model FogachoReveloProyecto.Models.Gasto
+﻿
+@model FogachoReveloProyecto.Models.Gasto
 
 @{
     ViewData["Title"] = "CrearGasto";
@@ -37,12 +38,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Valor" class="control-label"></label>
-                <input asp-for="Valor" class="form-control" />
+                <input asp-for="Valor" class="form-control" type="number" step="0.01" />
                 <span asp-validation-for="Valor" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ValorPagado" class="control-label"></label>
-                <input asp-for="ValorPagado" class="form-control" />
+                <input asp-for="ValorPagado" class="form-control" type="number" step="0.01"/>
                 <span asp-validation-for="ValorPagado" class="text-danger"></span>
             </div>
             <div class="form-group">

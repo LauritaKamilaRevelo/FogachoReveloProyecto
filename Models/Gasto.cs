@@ -17,8 +17,10 @@ namespace FogachoReveloProyecto.Models
         [Required]
         public string? Descripcion { get; set; }
         [Required]
+        [DataType(DataType.Currency)]
         public double? Valor { get; set; }
         [Required]
+        [DataType(DataType.Currency)]
         public double ValorPagado { get; set; }
         public Estado Estados { get; set; }
 
