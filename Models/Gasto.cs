@@ -43,7 +43,7 @@ namespace FogachoReveloProyecto.Models
             DateTime fechaActual = DateTime.Today;  // Solo tomamos la fecha, sin la hora
             DateTime fechaFinalSinHora = FechaFinal.Date; // Comparamos solo la fecha, sin la hora
 
-            if (Valor == 0) // Si ya está todo pagado
+            if (Valor != null && ValorPagado == Valor) // Si ya está todo pagado
             {
                 Estados = Estado.Finalizado;
             }
@@ -59,11 +59,7 @@ namespace FogachoReveloProyecto.Models
         //Este metodo se utiliza para validar el estado finalizado
         public void ValidarValor() 
         {
-            if (Valor == 0) {
-                Estados = Estado.Finalizado;
-            } else if (Estados == Estado.Finalizado) {
-                ActualizacionPagos();
-            }
+            ActualizacionPagos();
         }
     }
 }

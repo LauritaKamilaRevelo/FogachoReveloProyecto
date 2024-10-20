@@ -35,7 +35,7 @@ namespace FogachoReveloProyecto.Controllers
         {
             if (ModelState.IsValid)
             {
-                gasto.ActualizacionPagos();
+                gasto.ValidarValor();
                 _context.Add(gasto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(PaginaInicial)); // Redirige a la lista de gastos después de crear
@@ -99,7 +99,7 @@ namespace FogachoReveloProyecto.Controllers
                 try
                 {
                     // Llamar a ActualizacionPagos antes de actualizar el gasto
-                    gasto.ActualizacionPagos(); // Actualizamos el estado
+                    gasto.ValidarValor(); // Actualizamos el estado
                     _context.Update(gasto);
                     await _context.SaveChangesAsync();
                 }
