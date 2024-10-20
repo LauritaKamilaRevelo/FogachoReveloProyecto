@@ -11,6 +11,7 @@ namespace FogachoReveloProyecto.Models
         public DateTime FechaRegristo { get; set; }
         [Required]
         public DateTime FechaFinal { get; set; }
+        
         [Required]
         public Categoria Categorias { get; set; }
         [Required]

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<FogachoReveloProyecto.Models.Gasto>
+
+@{
+    ViewData["Title"] = "PaginaInicial";
+}
+
+<h1>Pagina Principal</h1>
+
+<p>
+    <a asp-action="CrearGasto">Ingresar Gasto</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().FechaRegristo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().FechaFinal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Categorias)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().ValorPagado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Estados)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) 
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaRegristo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaFinal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categorias)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorPagado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estados)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdGasto">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdGasto">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdGasto">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

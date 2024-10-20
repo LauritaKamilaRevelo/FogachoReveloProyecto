@@ -9,19 +9,37 @@ using FogachoReveloProyecto.Models;
 
 namespace FogachoReveloProyecto.Controllers
 {
-    public class GastoController : Controller
+    public class GastosController : Controller
     {
         private readonly FogachoReveloDataBase _context;
 
-        public GastoController(FogachoReveloDataBase context)
+        public GastosController(FogachoReveloDataBase context)
         {
             _context = context;
         }
 
         // GET: Gasto
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> PaginaInicial()
         {
-            return View(await _context.Gasto.ToListAsync());
+            var gastos = await _context.Gasto.ToListAsync();
+            return View(gastos);
+        }
+        public IActionResult CrearGasto()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CrearGasto(Gasto gasto)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(gasto);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(PaginaInicial)); // Redirige a la lista de gastos después de crear
+            }
+            return View(gasto); // Si hay errores, vuelve a la vista con el gasto
         }
 
         // GET: Gasto/Details/5
