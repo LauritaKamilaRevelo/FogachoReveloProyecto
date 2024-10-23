@@ -19,11 +19,24 @@ namespace FogachoReveloProyecto.Controllers
         }
 
         // GET: Gasto
-        public async Task<IActionResult> PaginaInicial()
+        // GET: Gasto
+        public async Task<IActionResult> PaginaInicial(string categoria)
         {
-            var gastos = await _context.Gasto.ToListAsync();
-            return View(gastos);
+            var gastos = from g in _context.Gasto select g;
+
+            // Si la categoría no es nula o vacía, filtra los gastos por la categoría seleccionada
+            if (!string.IsNullOrEmpty(categoria))
+            {
+                Categoria categoriaEnum;
+                if (Enum.TryParse(categoria, out categoriaEnum))
+                {
+                    gastos = gastos.Where(g => g.Categorias == categoriaEnum);
+                }
+            }
+
+            return View(await gastos.ToListAsync());
         }
+
         public IActionResult CrearGasto()
         {
             return View();

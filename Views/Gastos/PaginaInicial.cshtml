@@ -4,9 +4,20 @@
     ViewData["Title"] = "PaginaInicial";
 }
 
-<h1>Monetix</h1>
-<h4>Pagina Principal</h4>
-
+<h1>Pagina Principal</h1>
+<form asp-action="PaginaInicial" method="get">
+    <div class="form-group">
+        <label for="categoria">Buscar por Categoría:</label>
+        <select id="categoria" name="categoria" class="form-control">
+            <option value="">-- Todas --</option>
+            @foreach (var categoria in Enum.GetValues(typeof(FogachoReveloProyecto.Models.Categoria)))
+            {
+                <option value="@categoria">@categoria</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
 <p>
     <a asp-action="CrearGasto">Ingresar Gasto</a>
 </p>
