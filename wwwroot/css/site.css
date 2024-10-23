@@ -121,7 +121,7 @@ div > p {
 
 /* Estilos del footer */
 footer {
-    position: relative;
+    position: fixed;
     background-color: #f8f9fa;
     padding: 5px 0;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
@@ -133,6 +133,7 @@ footer {
     /* Contenedor del pie de página */
     footer .container {
         display: flex;
+        max-height: 30px;
         justify-content: left;
         align-items: left;
         font-size: 0.9rem;
