@@ -34,6 +34,19 @@ namespace FogachoReveloProyecto.Controllers
                 }
             }
 
+            // Pasa el total a la vista
+            var subtotalGastos = await gastos.SumAsync(g => g.Valor);
+            var subtotalValorPagado = await gastos.SumAsync(g => g.ValorPagado);
+
+            // Calcular el total (diferencia entre subtotal de gastos y subtotal de valor pagado)
+            var total = subtotalGastos - subtotalValorPagado;
+
+            // Pasar los subtotales y el total a la vista
+            ViewBag.SubtotalGastos = subtotalGastos;
+            ViewBag.SubtotalValorPagado = subtotalValorPagado;
+            ViewBag.Total = total;
+
+
             return View(await gastos.ToListAsync());
         }
 

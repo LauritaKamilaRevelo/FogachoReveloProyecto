@@ -81,4 +81,18 @@
             </tr>
         }
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" class="text-right"><strong>Subtotal Gastos:</strong></td>
+            <td><strong>@ViewBag.SubtotalGastos.ToString("C")</strong></td>
+        </tr>
+        <tr>
+            <td colspan="4" class="text-right"><strong>Subtotal Valor Pagado:</strong></td>
+            <td><strong>@ViewBag.SubtotalValorPagado.ToString("C")</strong></td>
+        </tr>
+        <tr>
+            <td colspan="4" class="text-right"><strong>Total:</strong></td>
+            <td><strong>@ViewBag.Total.ToString("C")</strong></td>
+        </tr>
+    </tfoot>
 </table>
