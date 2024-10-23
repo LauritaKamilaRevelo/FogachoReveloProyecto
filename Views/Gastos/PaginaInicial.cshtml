@@ -6,7 +6,7 @@
 
 <h1>Pagina Principal</h1>
 <form asp-action="PaginaInicial" method="get">
-    <div class="form-group">
+    <div class="Buscar">
         <label for="categoria">Buscar por Categoría:</label>
         <select id="categoria" name="categoria" class="form-control">
             <option value="">-- Todas --</option>
@@ -16,7 +16,7 @@
             }
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Buscar</button>
+    <button type="submit" class="btn btn-buscar">Buscar</button>
 </form>
 <p>
     <a asp-action="CrearGasto">Ingresar Gasto</a>
