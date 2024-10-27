@@ -13,6 +13,7 @@
     <div class="col-md-4">
         <form asp-action="CrearGasto">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!-- Cada div es un apartado nuevo para la creacion del gasto-->
             <div class="form-group">
                 <label asp-for="FechaRegristo" class="control-label"></label>
                 <input asp-for="FechaRegristo" class="form-control" />
@@ -25,6 +26,7 @@
             </div>
             <label asp-for="Categorias" class="control-label"></label>
             <select asp-for="Categorias" class="form-control">
+                <!-- Este apartado/bucle recorre todo los valores del enum de categorias y los muestra-->
                 @foreach (var categoria in Enum.GetValues(typeof(FogachoReveloProyecto.Models.Categoria)))
                 {
                     <option value="@categoria">@categoria</option>

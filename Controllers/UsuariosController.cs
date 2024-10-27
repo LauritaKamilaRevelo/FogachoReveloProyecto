@@ -11,6 +11,7 @@ namespace FogachoReveloProyecto.Controllers
 {
     public class UsuariosController : Controller
     {
+        //declaracion de una variable privada de solo lectura
         private readonly FogachoReveloDataBase _context;
 
         public UsuariosController(FogachoReveloDataBase context)
@@ -18,33 +19,8 @@ namespace FogachoReveloProyecto.Controllers
             _context = context;
         }
 
-        // GET: Usuarios
-        public async Task<IActionResult> Index()
-
-        {
-            //este se usa para que te mande a la pagina inicial
-            return View(await _context.Usuario.ToListAsync());
-        }
-
-        // GET: Usuarios/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _context.Usuario
-                .FirstOrDefaultAsync(m => m.IdUsuario == id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            return View(usuario);
-        }
-
         // GET: Usuarios/Create
+        //metodos de acción del controlador
         public IActionResult Create()
         {
             return View();
@@ -65,6 +41,9 @@ namespace FogachoReveloProyecto.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //Este apartado es del login y nos ayuda a verificar que el acceso con contraseñas y email
+        //esten dentro de la base de datos
+
         public async Task<IActionResult> Login([Bind("Email,Password")] Usuario usuario)
         {
 
@@ -93,6 +72,8 @@ namespace FogachoReveloProyecto.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //Metodo para el registro
+        //Añade a un nuevo usuario y una vez añadido retorna al Login
         public async Task<IActionResult> Registro([Bind("IdUsuario,Nombre,Apellido,Email,Password")] Usuario usuario)
         {
             if (ModelState.IsValid)
@@ -102,95 +83,6 @@ namespace FogachoReveloProyecto.Controllers
                 return RedirectToAction("Login");
             }
             return View(usuario);
-        }
-
-        // GET: Usuarios/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _context.Usuario.FindAsync(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-            return View(usuario);
-        }
-
-        // POST: Usuarios/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,Nombre,Apellido,Email,Password")] Usuario usuario)
-        {
-            if (id != usuario.IdUsuario)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(usuario);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UsuarioExists(usuario.IdUsuario))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(usuario);
-        }
-
-        // GET: Usuarios/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _context.Usuario
-                .FirstOrDefaultAsync(m => m.IdUsuario == id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            return View(usuario);
-        }
-
-        // POST: Usuarios/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var usuario = await _context.Usuario.FindAsync(id);
-            if (usuario != null)
-            {
-                _context.Usuario.Remove(usuario);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool UsuarioExists(int id)
-        {
-            return _context.Usuario.Any(e => e.IdUsuario == id);
         }
     }
 }

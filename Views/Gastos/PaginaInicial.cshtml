@@ -10,6 +10,7 @@
         <label for="categoria">Buscar por Categoría:</label>
         <select id="categoria" name="categoria" class="form-control">
             <option value="">-- Todas --</option>
+            <!-- Recorre en bucle todos los valores de categoria y los muestra-->
             @foreach (var categoria in Enum.GetValues(typeof(FogachoReveloProyecto.Models.Categoria)))
             {
                 <option value="@categoria">@categoria</option>
@@ -18,6 +19,7 @@
     </div>
     <button type="submit" class="btn btn-buscar">Buscar</button>
 </form>
+<!-- Este parrafo es la sección de crear un nuevo gasto-->
 <p>
     <a asp-action="CrearGasto">Ingresar Gasto</a>
 </p>
@@ -73,6 +75,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Estados)
                 </td>
+                <!-- Las acciones que se pueden hacer de cada gasto -->
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.IdGasto">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.IdGasto">Details</a> |
@@ -81,6 +84,7 @@
             </tr>
         }
     </tbody>
+    <!-- Al final de la tabla nos muestra los subtotales y el total de los gastos-->
     <tfoot>
         <tr>
             <td colspan="4" class="text-right"><strong>Subtotal Gastos:</strong></td>

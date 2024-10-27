@@ -4,6 +4,7 @@ namespace FogachoReveloProyecto.Models
 {
     public class Usuario
     {
+        //Creación de los atributos del usuario
         [Key]
         public int IdUsuario { get; set; }
         [Required]

@@ -32,8 +32,10 @@ namespace FogachoReveloProyecto.Models
             {
                 ValorPagado += valorPago;
                 double nuevoValor = (double)(Valor - ValorPagado);
-                Valor = nuevoValor < 0 ? 0 : nuevoValor; // Asegurar que no sea negativo
-                ActualizacionPagos(); // Actualizamos el estado tras cada cálculo
+                // Aseguramos que no sea negativo
+                Valor = nuevoValor < 0 ? 0 : nuevoValor; 
+                //usamos el metodo de recursividad
+                ActualizacionPagos(); 
                 return (double)Valor;
             }
             return 0;
@@ -42,18 +44,22 @@ namespace FogachoReveloProyecto.Models
         //Este metodo se utiliza para cambiar el estado de los gastos
         public void ActualizacionPagos()
         {
-            DateTime fechaActual = DateTime.Today;  // Solo tomamos la fecha, sin la hora
-            DateTime fechaFinalSinHora = FechaFinal.Date; // Comparamos solo la fecha, sin la hora
+            //Tomamos fechas
+            DateTime fechaActual = DateTime.Today;  
+            DateTime fechaFinalSinHora = FechaFinal.Date;
 
-            if (Valor != null && ValorPagado == Valor) // Si ya está todo pagado
+            // Si ya está todo pagado el estado será finalizado
+            if (Valor != null && ValorPagado == Valor) 
             {
                 Estados = Estado.Finalizado;
             }
-            else if (fechaActual > fechaFinalSinHora && Valor > 0) // Fecha ha pasado y no se ha pagado completamente
+            //si la fecha se ha pasado de la fecha final y no se ha pagado será Atrasado
+            else if (fechaActual > fechaFinalSinHora && Valor > 0)
             {
                 Estados = Estado.Atrasado;
             }
-            else if (fechaActual <= fechaFinalSinHora && Valor > 0) // Todavía dentro de la fecha final, pero no se ha pagado todo
+            //si la fecha aun no ha pasado la fecha final y no esta pagado será Pendiente
+            else if (fechaActual <= fechaFinalSinHora && Valor > 0) 
             {
                 Estados = Estado.Pendiente;
             }

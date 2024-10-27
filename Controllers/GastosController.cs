@@ -24,7 +24,7 @@ namespace FogachoReveloProyecto.Controllers
         {
             var gastos = from g in _context.Gasto select g;
 
-            // Si la categoría no es nula o vacía, filtra los gastos por la categoría seleccionada
+            // Si la categoría no es nula o vacía, se filtra los gastos por la categoría seleccionada
             if (!string.IsNullOrEmpty(categoria))
             {
                 Categoria categoriaEnum;
@@ -38,7 +38,7 @@ namespace FogachoReveloProyecto.Controllers
             var subtotalGastos = await gastos.SumAsync(g => g.Valor);
             var subtotalValorPagado = await gastos.SumAsync(g => g.ValorPagado);
 
-            // Calcular el total (diferencia entre subtotal de gastos y subtotal de valor pagado)
+            // Calcular el total restando el subtotalGastos y el subtotalGastosPagados
             var total = subtotalGastos - subtotalValorPagado;
 
             // Pasar los subtotales y el total a la vista
@@ -57,6 +57,7 @@ namespace FogachoReveloProyecto.Controllers
         
 
         [HttpPost]
+        //Metodo para crear un gasto desde el controlador
         public async Task<IActionResult> CrearGasto(Gasto gasto)
         {
             if (ModelState.IsValid)
@@ -64,12 +65,15 @@ namespace FogachoReveloProyecto.Controllers
                 gasto.ValidarValor();
                 _context.Add(gasto);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(PaginaInicial)); // Redirige a la lista de gastos después de crear
+                // Redirige a la lista de gastos después de crear
+                return RedirectToAction(nameof(PaginaInicial)); 
             }
-            return View(gasto); // Si hay errores, vuelve a la vista con el gasto
+            // Si hay errores vuelve a la vista con el gasto
+            return View(gasto); 
         }
 
         // GET: Gasto/Details/5
+        //Muestra los detalles del Gasto 
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -113,6 +117,7 @@ namespace FogachoReveloProyecto.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //Este metodo nos ayuda a editar un gasto
         public async Task<IActionResult> Edit(int id, [Bind("IdGasto,FechaRegristo,FechaFinal,Categorias,Descripcion,Valor,ValorPagado,Estados")] Gasto gasto)
         {
             if (id != gasto.IdGasto)
@@ -125,7 +130,8 @@ namespace FogachoReveloProyecto.Controllers
                 try
                 {
                     // Llamar a ActualizacionPagos antes de actualizar el gasto
-                    gasto.ValidarValor(); // Actualizamos el estado
+                    // Actualizamos el estado
+                    gasto.ValidarValor(); 
                     _context.Update(gasto);
                     await _context.SaveChangesAsync();
                 }
@@ -140,6 +146,7 @@ namespace FogachoReveloProyecto.Controllers
                         throw;
                     }
                 }
+                //Nos retorna a la pagina inicial
                 return RedirectToAction(nameof(PaginaInicial));
             }
             return View(gasto);
@@ -164,20 +171,24 @@ namespace FogachoReveloProyecto.Controllers
         }
 
         // POST: Gasto/Delete/5
+        //Metodo que elimina un gasto
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var gasto = await _context.Gasto.FindAsync(id);
+            //Verificamos que el gasto exista
             if (gasto != null)
             {
+                //eliminamos el gasto
                 _context.Gasto.Remove(gasto);
             }
-
+            //Nos manda a la pagina inicial
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(PaginaInicial));
         }
 
+        //Verifica que el gasto exista por medio de su ID
         private bool GastoExists(int id)
         {
             return _context.Gasto.Any(e => e.IdGasto == id);
